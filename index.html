@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js h-full" lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -19,14 +19,42 @@
   <link rel="stylesheet" href="css/tailwind.css">
 
   <meta name="theme-color" content="#fafafa">
+  <style>
+    @keyframes blink {
+      0% { opacity: 0; }
+      49% { opacity: 0; }
+      50% { opacity: 1; }
+      100% { opacity: 1; }
+    }
+
+    #typed-text {
+      display: flex;
+    }
+
+    #typed-text::after {
+      content: '';
+      display: inline-block;
+      width: 2px;
+      height: 80px;
+      background: black;
+      animation-name: blink;
+      animation-duration: 1.2s;
+      animation-iteration-count: infinite;
+    }
+  </style>
 </head>
 
-<body>
+<body class="flex flex-col h-full">
 
   <!-- Add your site or application content here -->
-  <h1 class="text-2xl text-right text-gray-500 p-5">Typybara</h1>
-  <div id="main-text" class="text-7xl text-slate-700 p-10 px-20"></div>
-  <div id="type-text"></div>
+  <header>
+    <h1 class="text-2xl text-right text-gray-500 p-5">Typybara</h1>
+  </header>
+  <main>
+    <div id="main-text" class="text-7xl text-slate-700 p-10 px-20 select-none"></div>
+    <div id="typed-text" class="text-7xl text-slate-700 p-10 px-20 select-none"></div>
+    <div class="bg-green-100 bg-red-100"></div>
+  </main>
 
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="js/plugins.js"></script>
