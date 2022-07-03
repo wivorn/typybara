@@ -20,11 +20,30 @@
 
   <meta name="theme-color" content="#fafafa">
   <style>
+    :root {
+      --key-color: white;
+      --key-bg-color: #333;
+      --key-bg-color-highlight: #00b894;
+    }
+
     @keyframes blink {
       0% { opacity: 0; }
       49% { opacity: 0; }
       50% { opacity: 1; }
       100% { opacity: 1; }
+    }
+
+    #logo {
+      display: flex;
+      height: 50px;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .capybara {
+      width: 50px;
+      height: auto;
     }
 
     #typed-text {
@@ -41,20 +60,126 @@
       animation-duration: 1.2s;
       animation-iteration-count: infinite;
     }
+
+    #keyboard {
+      margin: 0 auto;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .keyboard-row {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin: 0 auto 8px;
+      touch-action: manipulation;
+    }
+
+    .key {
+      flex: 1;
+      padding: 0 16px;
+      background-color: var(--key-bg-color);
+      color: var(--key-color);
+      border-radius: 4px;
+      height: 50px;
+      user-select: none;
+    }
+
+    .key:active, .key--highlight {
+      background-color: var(--key-bg-color-highlight);
+    }
+
+    .key + .key {
+      margin-left: 8px;
+    }
+
+    .key--big {
+      flex: 2;
+    }
+
+    .text-correct {
+      color: #22c55e;
+    }
+
+    .text-incorrect {
+      color: #ef4444;
+    }
   </style>
 </head>
 
 <body class="flex flex-col h-full">
 
   <!-- Add your site or application content here -->
-  <header>
-    <h1 class="text-2xl text-right text-gray-500 p-5">Typybara</h1>
+  <header class="p-5 flex justify-end">
+    <div id="logo">
+      <img class="capybara pr-2" src="https://cdn-icons-png.flaticon.com/512/3277/3277713.png" alt="Capybara free icon" title="Capybara free icon">
+      <h1 class="text-2xl text-right text-gray-500">Typybara</h1>
+    </div>
   </header>
-  <main>
-    <div id="main-text" class="text-7xl text-slate-700 p-10 px-20 select-none"></div>
+  <main class="mb-10">
+    <div id="sample-text" class="relative">
+      <div id="main-text" class="inline-block text-7xl text-slate-700 p-10 px-20 select-none"></div>
+      <div id="correction-text" class="inline-block absolute top-0 left-0 text-7xl p-10 px-20 select-none"></div>
+    </div>
     <div id="typed-text" class="text-7xl text-slate-700 p-10 px-20 select-none"></div>
-    <div class="bg-green-100 bg-red-100"></div>
   </main>
+  <div id="keyboard">
+    <div class="keyboard-row">
+      <button type="button" class="key" data-key="!">!</button>
+      <button type="button" class="key" data-key="1">1</button>
+      <button type="button" class="key" data-key="2">2</button>
+      <button type="button" class="key" data-key="3">3</button>
+      <button type="button" class="key" data-key="4">4</button>
+      <button type="button" class="key" data-key="5">5</button>
+      <button type="button" class="key" data-key="6">6</button>
+      <button type="button" class="key" data-key="7">7</button>
+      <button type="button" class="key" data-key="8">8</button>
+      <button type="button" class="key" data-key="9">9</button>
+      <button type="button" class="key" data-key="0">0</button>
+      <button type="button" class="key key--big" data-key="delete">delete</button>
+    </div>
+    <div class="keyboard-row">
+      <button type="button" class="key" data-key="q">Q</button>
+      <button type="button" class="key" data-key="w">W</button>
+      <button type="button" class="key" data-key="e">E</button>
+      <button type="button" class="key" data-key="r">R</button>
+      <button type="button" class="key" data-key="t">T</button>
+      <button type="button" class="key" data-key="y">Y</button>
+      <button type="button" class="key" data-key="u">U</button>
+      <button type="button" class="key" data-key="i">I</button>
+      <button type="button" class="key" data-key="o">O</button>
+      <button type="button" class="key" data-key="p">P</button>
+      <button type="button" class="key" data-key="[">[</button>
+      <button type="button" class="key" data-key="]">]</button>
+    </div>
+    <div class="keyboard-row">
+      <button type="button" class="key" data-key="a">A</button>
+      <button type="button" class="key" data-key="s">S</button>
+      <button type="button" class="key" data-key="d">D</button>
+      <button type="button" class="key" data-key="f">F</button>
+      <button type="button" class="key" data-key="g">G</button>
+      <button type="button" class="key" data-key="h">H</button>
+      <button type="button" class="key" data-key="j">J</button>
+      <button type="button" class="key" data-key="k">K</button>
+      <button type="button" class="key" data-key="l">L</button>
+      <button type="button" class="key" data-key=";">;</button>
+      <button type="button" class="key" data-key="'">'</button>
+    </div>
+    <div class="keyboard-row">
+      <button type="button" class="key key--big" data-key="shiftLeft">shift</button>
+      <button type="button" class="key" data-key="z">Z</button>
+      <button type="button" class="key" data-key="x">X</button>
+      <button type="button" class="key" data-key="c">C</button>
+      <button type="button" class="key" data-key="v">V</button>
+      <button type="button" class="key" data-key="b">B</button>
+      <button type="button" class="key" data-key="n">N</button>
+      <button type="button" class="key" data-key="m">M</button>
+      <button type="button" class="key" data-key=",">,</button>
+      <button type="button" class="key" data-key=".">.</button>
+      <button type="button" class="key" data-key="?">?</button>
+      <button type="button" class="key key--big" data-key="shiftRight">shift</button>
+    </div>
+  </div>
 
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="js/plugins.js"></script>
