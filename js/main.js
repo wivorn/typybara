@@ -8,9 +8,13 @@ class App {
     this.typedTextDiv = document.getElementById("typed-text")
     this.correctionTextDiv = document.getElementById("correction-text")
     this.logoDiv = document.getElementById("logo")
+    this.virtualKeys = document.getElementsByClassName("key")
 
     document.addEventListener("keydown", this.handleKeyDown.bind(this))
     this.logoDiv.onclick = this.handleLogoClick.bind(this)
+    for (let key of this.virtualKeys) {
+        key.addEventListener("click", this.handleVirtualKeyPress.bind(this))
+    }
 
     this.mainTextDiv.innerHTML = this.mainText
   }
@@ -76,6 +80,11 @@ class App {
         keyElement.classList.remove("key--highlight");
       }, 100)
     }
+  }
+
+  handleVirtualKeyPress(key) {
+    const char = key.srcElement?.dataset?.key
+    this.handleKeyDown({ key: char, code: char })
   }
 }
 
